@@ -25,6 +25,7 @@ public class GoogleTranslateServer {
 
 	public static void main(String[] args) throws ClassNotFoundException, IOException, InterruptedException {
 		final GoogleTranslateServer server = new GoogleTranslateServer();
+		System.setProperty("file.encoding", "UTF-8");
 		server.start();
 		server.blockUntilShutdown();
 	}

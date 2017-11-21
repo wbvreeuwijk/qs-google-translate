@@ -2,8 +2,8 @@ package net.reeuwijk.qlik.aai.functions;
 
 import java.util.List;
 
-import net.reeuwijk.qlik.aai.util.Dictionary;
 import net.reeuwijk.qlik.aai.util.SSEFunction;
+import net.reeuwijk.qlik.translate.util.Dictionary;
 import qlik.sse.BundledRows;
 import qlik.sse.BundledRows.Builder;
 import qlik.sse.DataType;

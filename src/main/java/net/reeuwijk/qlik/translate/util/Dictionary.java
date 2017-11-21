@@ -1,10 +1,12 @@
-package net.reeuwijk.qlik.aai.util;
+package net.reeuwijk.qlik.translate.util;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.HashMap;
 import java.util.Properties;
 import java.util.logging.Logger;
@@ -25,7 +27,7 @@ public class Dictionary {
 	private Properties functionProperties = null;
 
 	static final Logger logger = Logger.getLogger(Dictionary.class.getName());
-
+	
 	public class WordList {
 		private String from = null;
 		private String to = null;
@@ -43,12 +45,16 @@ public class Dictionary {
 			this.to = toLanguage;
 			this.toOption = TranslateOption.targetLanguage(toLanguage);
 			wordList = new Properties();
+			File translationDir = new File(transDir);
+			if(!translationDir.exists()) {
+				translationDir.mkdirs();
+			}
 			wordFile = new File(transDir, this.from + "-" + this.to + ".properties");
 			try {
 				if (wordFile.exists()) {
-					wordList.load(new FileInputStream(wordFile));
+					wordList.load(new InputStreamReader(new FileInputStream(wordFile),"UTF-8"));
 				} else {
-					wordList.store(new FileOutputStream(wordFile), "Initial Store");
+					wordList.store(new OutputStreamWriter(new FileOutputStream(wordFile),"UTF-8"), "Initial Store");
 				}
 			} catch (FileNotFoundException e) {
 				logger.severe(e.getMessage());
@@ -67,7 +73,7 @@ public class Dictionary {
 						Translation translation = translateApi.translate(text, fromOption, toOption);					
 						returnValue = StringEscapeUtils.unescapeHtml4(translation.getTranslatedText());
 						wordList.setProperty(text, returnValue);
-						wordList.store(new FileOutputStream(wordFile), "Added " + text);
+						wordList.store(new OutputStreamWriter(new FileOutputStream(wordFile),"UTF-8"), "Added " + text);
 					}
 				} catch (FileNotFoundException e) {
 					logger.severe(e.getMessage());

@@ -20,7 +20,7 @@ import qlik.sse.Row;
 public class SSEServer extends ConnectorGrpc.ConnectorImplBase {
 
 	private static final String PLUGIN_VERSION = "0.1";
-	private static final String PLUGIN_ID = "aai-java-regexp";
+	private static final String PLUGIN_ID = "aai-google-translate";
 	private ArrayList<Class<SSEFunction>> sseFunctions = new ArrayList<Class<SSEFunction>>();
 
 	static final Logger logger = Logger.getLogger(SSEServer.class.getName());
@@ -96,7 +96,7 @@ public class SSEServer extends ConnectorGrpc.ConnectorImplBase {
 		SSEFunction sseFunction;
 		try {
 			sseFunction = cls.newInstance();
-			logger.info("Executing function: "+sseFunction.getClass().getName());
+			logger.fine("Executing function: "+sseFunction.getClass().getName());
 			StreamObserver<BundledRows> response = new StreamObserver<BundledRows>() {
 				@Override
 				public void onNext(BundledRows value) {
