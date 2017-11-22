@@ -85,7 +85,23 @@ J.TranslateLabel(<language>,<text>)
 J.TranslateRows(<language>,<field>) 
 ```
 
+The language is the language to which the text needs to be translated. Check the supported language section to what parameter can be passed.
+
 Look at the example application [here](https://github.com/wbvreeuwijk/qs-google-translate/raw/master/application/)
+** The example application uses the [qsVariable extension](http://branch.qlik.com/#!/project/56728f52d1e497241ae697f8) for the selection of languages **
+
+## Customizing translations
+
+When the plugin is called it will first look into the collection of known translations. These are stored in translation files in the translations directory based on the the *from* and *to* of the translations that are created. So `en-ja.properties` will contain the translated texts from English to Japanese. If certain translations provided through the Google Translation API are not correct they can be changed by changing the translations properties file. 
+*Please note that for performance reasons the translations are only read when the plugin is started*
+
+## Supported languages
+
+To understand what languages are support you can look at the [Language Support](https://cloud.google.com/translate/docs/languages) page.
+
+## Pricing
+
+Use of the Google Translate API is not free, but charged by the number of characters. As of this writing Google charges $0.02 per 1000 characters per month. Learn more about pricing here: [Google Cloud Platform Pricing Calculator](https://cloud.google.com/products/calculator/)
 
 ## Limitations
 
