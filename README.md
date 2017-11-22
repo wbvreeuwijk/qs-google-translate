@@ -2,7 +2,7 @@
 
 This AAI Plugin implements an interface to the Google Translate API. It uses a caching mechanism for previously translated items and is the perfect tool to create multi-lingual Qlik Sense or QlikView applications
 
-![Multilingual Qlik Sense Application](aai-google-translate.gif)
+![Multilingual Qlik Sense Application](https://raw.githubusercontent.com/wbvreeuwijk/qs-google-translate/master/aai-qoogle-translate.gif)
 
 ## Prerequisites
 
@@ -23,7 +23,7 @@ Because we use the Google Translate API we need to retrieve Google API credentia
 5. After enabling the Google Cloud Translation API, click the Go to Credentials button to set up your Cloud Translation API credentials:
 6. See [the Authentication guide](https://cloud.google.com/docs/authentication/getting-started) for information on how to authenticate to the Cloud Translation API service from your code. Following those steps, you should obtain both a service account key file (in JSON)  that will allow you to authenticate to the Translation API.
 
-### Running the plugin 
+### Starting the plugin 
 
 The plugin comes in a self contained zip-file with all the needed Java libraries. To get everything up and running follow these steps:
 
@@ -57,12 +57,39 @@ To make it easier to run the plugin there is a docker image available. For this 
 5. Start the docker image with the following command
   ```Bash
   docker run -d -p 50054:50054 \
-  -v $PWD/config:/config \
-  -v $PWD/translations:/translations \
-  wbvreeuwijk/qs-google-translate
+             -v $PWD/config:/config \
+             -v $PWD/translations:/translations \
+             wbvreeuwijk/qs-google-translate
   ```
-  
 
+### Setup Qlik Sense or QlikView
+
+For the plugin to be used in a Qlik Sense of QlikView application you will need to add the plugin hostname and port into the `Settings.ini` file.
+
+Modify this file to look like this
+```Ini
+[Settings 7]
+SystemLogVerbosity=5
+SSEPlugin=J,localhost:50054
+```
+
+If you are running the plugin on a different server change localhost to point to this server.
+
+Start or restart you Qlik Sense or Qlik View server or desktop application. If all is configured correctly you will see this in the log of the plugin.
+
+### Using the plugin
+
+In you Qlik Sense or QlikView application you can now use the following expressions:
+```JavaScript
+J.TranslateLabel(<language>,<text>) 
+J.TranslateRows(<language>,<field>) 
+```
+
+Look at the example application [here](https://github.com/wbvreeuwijk/qs-google-translate/raw/master/application/)
+
+## Limitations
+
+Currently Qlik Sense and QlikView do not support using AAI expressions as calculated dimensions.
 
 ## Author 
 
@@ -76,6 +103,6 @@ To make it easier to run the plugin there is a docker image available. For this 
 
 Copyright (c) 2017 Bas van Reeuwijk
 
-Released under the GNU GENERAL PUBLIC LICENSE Version 3.
+Released under the GPL-3.0.
 
 ***
