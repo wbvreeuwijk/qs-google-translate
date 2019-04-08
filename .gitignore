@@ -4,3 +4,9 @@
 /gradlew
 /gradlew.bat
 /translations/
+
+bin/
+
+\.DS_Store
+
+\.externalToolBuilders/
